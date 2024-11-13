@@ -4,6 +4,10 @@
 
 {% block content %}
     <h2>Task List</h2>
+    
+    <!-- Link to Create a New Task -->
+    <p><a href="{% url 'create_task' %}">Create a New Task</a></p>
+    
     <table border="1">
         <tr>
             <th>Task ID</th>
@@ -20,7 +24,13 @@
             <td>{{ task.deadline }}</td>
             <td>{{ task.priority }}</td>
             <td>{{ task.status }}</td>
-            <td>{{ task.intern.name if task.intern else "Unassigned" }}</td>
+            <td>
+                {% if task.intern %} 
+                    {{ task.intern.name }} 
+                {% else %} 
+                    Unassigned 
+                {% endif %}
+            </td>
         </tr>
         {% endfor %}
     </table>

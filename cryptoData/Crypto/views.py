@@ -6,7 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from .models import CryptoProject, Outreach, Task
 from .forms import CryptoProjectForm, CustomUserCreationForm
-
+from .forms import TaskForm
 # Registration view
 def register(request):
     if request.method == 'POST':
@@ -45,6 +45,17 @@ class CryptoProjectListView(ListView):
     model = CryptoProject
     template_name = 'crypto/crypto_project_list.html'  
     context_object_name = 'crypto_project'
+
+#Create view for adding a new task
+def create_task(request):
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            form.save()  # Save the new task to the database
+            return redirect('task_list')  # Redirect to the task list page
+    else:
+        form = TaskForm()
+    return render(request, 'create_task.html', {'form': form})
 
 # Detail view for task list
 def task_list(request):
@@ -91,3 +102,4 @@ def project_outreach_list(request, project_id):
     project = get_object_or_404(CryptoProject, id=project_id)
     outreach_list = Outreach.objects.filter(project=project)
     return render(request, 'crypto/outreach_list.html', {'project': project, 'outreach_list': outreach_list})
+

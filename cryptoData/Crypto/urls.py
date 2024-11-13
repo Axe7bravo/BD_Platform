@@ -12,7 +12,8 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),  
 
     # Crypto project management URLs
-    path('', CryptoProjectListView.as_view(), name='crypto_project_list'),  
+    path('', CryptoProjectListView.as_view(), name='crypto_project_list'), 
+    path('create_task/', views.create_task, name='create_task'),
     path('tasks/', views.task_list, name='task_list'),  
     path('create/', CryptoProjectCreateView.as_view(), name='crypto_create'),  
     path('<int:pk>/update/', CryptoProjectUpdateView.as_view(), name='crypto_update'),  
