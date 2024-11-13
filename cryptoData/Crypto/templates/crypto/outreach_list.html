@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Outreach List for {{ project.name }}{% endblock %}
+
+{% block content %}
+    <h2>Outreach List for {{ project.name }}</h2>
+    <table border="1">
+        <tr>
+            <th>Intern</th>
+            <th>Date</th>
+            <th>Method</th>
+            <th>Response</th>
+            <th>Follow-up Date</th>
+        </tr>
+        {% for outreach in outreach_list %}
+        <tr>
+            <td>{{ outreach.intern.username if outreach.intern else "Unknown" }}</td>
+            <td>{{ outreach.date }}</td>
+            <td>{{ outreach.method }}</td>
+            <td>{{ outreach.response }}</td>
+            <td>{{ outreach.followup }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

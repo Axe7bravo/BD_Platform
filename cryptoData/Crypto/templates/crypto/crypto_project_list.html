@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Crypto Project List{% endblock %}
+
+{% block content %}
+<h2>Crypto Projects</h2>
+<a href="{% url 'crypto_create' %}" class="btn btn-primary mb-3">Add New Project</a>
+
+{% if crypto_projects %}
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Market Cap</th>
+        <th>Volume</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for project in crypto_projects %}
+        <tr>
+          <td>{{ project.id }}</td>
+          <td>{{ project.name }}</td>
+          <td>{{ project.market_cap }}</td>
+          <td>{{ project.volume }}</td>
+          <td>
+            <a href="{% url 'crypto_update' project.id %}" class="btn btn-secondary btn-sm">Edit</a>
+            <a href="{% url 'crypto_delete' project.id %}" class="btn btn-danger btn-sm">Delete</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">No projects available.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>No projects available.</p>
+{% endif %}
+{% endblock %}
